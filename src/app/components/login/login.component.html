@@ -1,0 +1,46 @@
+<div class="theme-purple authentication" *ngIf="show">
+<div class="page-header">
+  <div class="page-header-image" style="background-image:url(assets/images/login.jpg)"></div>
+  <div class="container">
+    <div class="col-md-12 content-center">
+      <div class="card-plain">
+        <form class="form" method="post" #loginForm="ngForm" (submit)="loginAdmin(loginForm.value)">
+          <div class="header">
+            <div class="logo-container">
+              <img src="assets/images/logo.svg" alt="">
+            </div>
+            <h5>Log in</h5>
+          </div>
+          <div class="content">
+            <div class="input-group input-lg">
+              <input type="text" class="form-control" placeholder="Enter User Name" name="email" ngModel required>
+              <span class="input-group-addon">
+                <i class="zmdi zmdi-account-circle"></i>
+              </span>
+            </div>
+            <div class="input-group input-lg">
+              <input type="password" placeholder="Password" class="form-control" name="password" ngModel required/>
+              <span class="input-group-addon">
+                <i class="zmdi zmdi-lock"></i>
+              </span>
+            </div>
+          </div>
+          <div class="footer text-center">
+            <button type="submit"class="btn btn-primary btn-round btn-lg btn-block ">SIGN IN</button>
+            <h5>
+              <a href="forgot-password.html" class="link">Forgot Password?</a>
+            </h5>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; 2018
+      </div>
+    </div>
+  </footer>
+</div>
+</div>

@@ -1,0 +1,121 @@
+<section class="content">
+  <app-header title="{{title}}"></app-header>
+  <div class="container-fluid">
+  <!-- Input -->
+  <div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>
+          <strong>Manage Category</strong>
+        </h2>
+        <ul class="header-dropdown">
+          <li class="dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="zmdi zmdi-more"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li>
+                <a href="javascript:void(0);">Action</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">Another action</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);">Something else</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div class="body">
+                <form class="form-horizontal"  method="post" #addForm="ngForm" >
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                      <label for="p_name">Category Name</label>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-8">
+                      <div class="form-group">
+                        <input type="text" id="p_name" class="form-control" [(ngModel)]="category.name"  name="catname" placeholder="Enter Category Name">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                      <label for="product_desc">Category Description</label>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <textarea rows="4" id="product_desc" name="long_desc" [(ngModel)]="category.description" class="form-control no-resize" placeholder="Please Enter Category Description..."></textarea>
+                      </div>
+                    </div>
+                    </div>
+                  </div>
+                  <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                      <label for="product_desc">Select</label>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-8">
+                      <div class="form-group">
+                        <div class="form-line">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4">
+                            <p>
+                              <b>Status</b>
+                            </p>
+                            <select class="form-control" name="status">
+                              <option value="False">False</option>
+                              <option value="True">True</option>
+                            </select>
+                          </div>
+                        </div>
+
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row clearfix">
+                      <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                        <label for="product_desc">Image</label>
+                      </div>
+                      <div class="col-lg-10 col-md-10 col-sm-8">
+                        <div class="form-group">
+                          <div class="form-line">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                            <div class="form-group files">
+                                              <label> Image</label>
+                                              <input type="file"    [(ngModel)]="path" #file name="image" (change)="setFull(file.files)" ngModel class="form-control" accept="image/*" >
+                                            </div>
+                                  </div>
+                                   <div class="col-md-6">
+                                     <div *ngIf="category?.catimage === 'default' || category?.catimage === '' || id=== ''; else load" id="addprv">
+                                        <img class="img-responsive" style="height:180px; margin-top:3.5em" src="assets/images/no_img.png"  id="prv"  alt="Image"  />
+                                     </div>
+                                     <ng-template #load >
+                                       <div id="addprv">
+                                          <img class="img-responsive" style="height:180px; margin-top:3.5em" src="{{category?.catimage}}" id="prv"  alt="Product"  />
+                                       </div>
+                                    </ng-template>
+                                    </div>
+                                </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  <div class="row clearfix">
+                    <div class="col-sm-8 offset-sm-2">
+                      <button type="button"  (click)="btn(addForm.value)"  class="btn btn-raised btn-primary btn-round waves-effect">Add  <i class="fa fa-plus-circle"></i></button>
+                    </div>
+                  </div>
+                </form>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </div>
+  </section>

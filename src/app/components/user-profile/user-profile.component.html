@@ -1,0 +1,223 @@
+<section class="content profile-page">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-7 col-md-6 col-sm-12">
+        <h2>Profile
+          <small>Welcome to ShopCart</small>
+        </h2>
+      </div>
+      <div class="col-lg-5 col-md-6 col-sm-12">
+        <ul class="breadcrumb float-md-right">
+          <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> ShopCart</a></li>
+          <li class="breadcrumb-item"><a [routerLink]="['/users']">Users</a></li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-xl-6 col-lg-7 col-md-12">
+            <div class="card profile-header">
+                <div class="body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="profile-image float-md-right"> <img src="{{user?.thumb_image}}" alt=""> </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-12">
+                            <h4 class="m-t-0 m-b-0"><strong>{{user?.name}}</strong> {{user?.surname}}</h4>
+                            <span class="job_post">Ui UX Designer</span>
+                            <p>Address: {{user?.address}}</p>
+                            <div>
+                                <button class="btn btn-primary btn-round btn-simple">Message</button>
+                            </div>
+                            <p class="social-icon m-t-5 m-b-0">
+                                <a title="Twitter" href="javascript:void(0);"><i class="zmdi zmdi-twitter"></i></a>
+                                <a title="Facebook" href="javascript:void(0);"><i class="zmdi zmdi-facebook"></i></a>
+                                <a title="Google-plus" href="javascript:void(0);"><i class="zmdi zmdi-twitter"></i></a>
+                                <a title="Behance" href="javascript:void(0);"><i class="zmdi zmdi-behance"></i></a>
+                                <a title="Instagram" href="javascript:void(0);"><i class="zmdi zmdi-instagram "></i></a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#about">About</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane body active" id="about">
+                        <small class="text-muted">Email address: </small>
+                        <p>{{user?.email}}</p>
+                        <hr>
+                        <small class="text-muted">Phone: </small>
+                        <p>{{user?.phoneNumber}}</p>
+                        <hr>
+                        <small class="text-muted">Membership: </small>
+                        <p class="m-b-0">{{user?.membership}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="header">
+                    <h2><strong>Recent</strong> Activity</h2>
+                    <ul class="header-dropdown">
+                        <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
+                            <ul class="dropdown-menu dropdown-menu-right slideUp float-right">
+                                <li><a href="javascript:void(0);">Edit</a></li>
+                                <li><a href="javascript:void(0);">Delete</a></li>
+                                <li><a href="javascript:void(0);">Report</a></li>
+                            </ul>
+                        </li>
+                        <li class="remove">
+                            <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="body user_activity">
+                    <div class="streamline b-accent">
+                        <div class="sl-item">
+                            <img class="user rounded-circle" src="assets/images/xs/avatar4.jpg" alt="">
+                            <div class="sl-content">
+                                <h5 class="m-b-0">Admin Birthday</h5>
+                                <small>Jan 21 <a href="javascript:void(0);" class="text-info">Sophia</a>.</small>
+                            </div>
+                        </div>
+                        <div class="sl-item">
+                            <img class="user rounded-circle" src="assets/images/xs/avatar5.jpg" alt="">
+                            <div class="sl-content">
+                                <h5 class="m-b-0">Add New Contact</h5>
+                                <small>30min ago <a href="javascript:void(0);">Alexander</a>.</small>
+                                <small><strong>P:</strong> +264-625-2323</small>
+                                <small><strong>E:</strong> maryamamiri@gmail.com</small>
+                            </div>
+                        </div>
+                        <div class="sl-item">
+                            <img class="user rounded-circle" src="assets/images/xs/avatar6.jpg" alt="">
+                            <div class="sl-content">
+                                <h5 class="m-b-0">Code Change</h5>
+                                <small>Today <a href="javascript:void(0);">Grayson</a>.</small>
+                                <small>The standard chunk of Lorem Ipsum used since the 1500s is reproduced</small>
+                            </div>
+                        </div>
+                        <div class="sl-item">
+                            <img class="user rounded-circle" src="assets/images/xs/avatar7.jpg" alt="">
+                            <div class="sl-content">
+                                <h5 class="m-b-0">New Email</h5>
+                                <small>45min ago <a href="javascript:void(0);" class="text-info">Fidel Tonn</a>.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-12">
+            <div class="card">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#mypost">Favorites</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#userCart">Cart</a></li>
+                    <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#usersettings" (click)="getSettingsInfo()">Settings</a></li>
+                </ul>
+            </div>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="mypost">
+                    <div class="card">
+                        <div class="row clearfix">
+                            <div class="col-lg-3 col-md-4 col-sm-12" *ngFor="let favorite of favoritesArray">
+                                <div class="card product_item">
+                                    <div class="body">
+                                        <div class="cp_img">
+                                            <img src="assets/images/ecommerce/1.png" alt="Product" class="img-fluid" />
+                                            <div class="hover">
+                                                <a (click)="goToInfo(favorite?.product_id)" class="btn btn-primary waves-effect"><i class="zmdi zmdi-eye"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="product_details">
+                                            <h5><a href="ec-product-detail.html">{{favorite?.product_name}}</a></h5>
+                                            <ul class="product_price list-unstyled">
+                                                <li class="new_price">{{favorite?.product_price}} DT</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                            </div>
+                    </div>
+                </div>
+
+                <div role="tabpanel" class="tab-pane active" id="userCart">
+                  <div class="card">
+                      <div class="row clearfix">
+                          <div class="col-lg-3 col-md-4 col-sm-12" *ngFor="let favorite of favoritesArray">
+                              <div class="card product_item">
+                                  <div class="body">
+                                      <div class="cp_img">
+                                          <img src="assets/images/ecommerce/1.png" alt="Product" class="img-fluid" />
+                                          <div class="hover">
+                                              <a (click)="goToInfo(favorite?.product_id)" class="btn btn-primary waves-effect"><i class="zmdi zmdi-eye"></i></a>
+                                          </div>
+                                      </div>
+                                      <div class="product_details">
+                                          <h5><a href="ec-product-detail.html">{{favorite?.product_name}}</a></h5>
+                                          <ul class="product_price list-unstyled">
+                                              <li class="new_price">{{favorite?.product_price}} DT</li>
+                                          </ul>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+
+
+
+                          </div>
+                  </div>
+              </div>
+
+                <div role="tabpanel" class="tab-pane" id="usersettings">
+                    <div class="card">
+                        <div class="header">
+                            <h2><strong>Account</strong> Settings</h2>
+                        </div>
+                        <div class="body">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Surname" [(ngModel)]="us.surname">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Firstname" [(ngModel)]="us.name">
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" placeholder="Phone Number" [(ngModel)]="us.phoneNumber">
+                            </div>
+                            <div class="form-group">
+                              <input type="text" class="form-control" placeholder="Membership" [(ngModel)]="us.membership">
+                          </div>
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                  <textarea rows="2" class="form-control no-resize" placeholder="Address Line 1" [(ngModel)]="us.address"></textarea>
+                              </div>
+                          </div>
+                            <button class="btn btn-info btn-round" (click)="updateInfo()">Save Changes</button>
+                        </div>
+                    </div>
+
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+</section>

@@ -1,0 +1,177 @@
+<section class="content">
+<app-header title="{{title}}"></app-header>
+<div class="container-fluid">
+<!-- Input -->
+<div class="row clearfix">
+<div class="col-lg-12 col-md-12 col-sm-12">
+  <div class="card">
+    <div class="header">
+      <h2>
+        <strong>{{title}}</strong>
+      </h2>
+      <ul class="header-dropdown">
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <i class="zmdi zmdi-more"></i>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+              <a href="javascript:void(0);">Action</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">Another action</a>
+            </li>
+            <li>
+              <a href="javascript:void(0);">Something else</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="body">
+              <form class="form-horizontal"  method="post" #addForm="ngForm" >
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="p_name">Prouct Name</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <input type="text" id="p_name" class="form-control" [(ngModel)]="product.product_name"  name="prodname" placeholder="Enter Product Name">
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="product_idsku">Product IDSKU</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <input type="text" id="product_idsku" [(ngModel)]="product.product_id_sku" name="id_sku" class="form-control" placeholder="Enter Product Id Sku">
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="product_price">Product Price</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <input type="number" id="product_price" name="price" [(ngModel)]="product.product_price" class="form-control" placeholder="Enter Product Short Description">
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="product_price">Product Quantity</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <input type="number" id="product_price" name="qty" [(ngModel)]="product.product_quantity" class="form-control" placeholder="Enter Product Short Description">
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="product_short_desc">Product Short Desc</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <input type="text" id="product_short_desc" name="shrt_desc" [(ngModel)]="product.product_short_desc" class="form-control" placeholder="Enter Product Short Description">
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="product_desc">Product Description</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                  <div class="form-group">
+                    <div class="form-line">
+                      <textarea rows="4" id="product_desc" name="long_desc" [(ngModel)]="product.product_description" class="form-control no-resize" placeholder="Please Enter Product Description..."></textarea>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="product_desc">Select</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <div class="form-line">
+                      <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                          <p>
+                            <b>Category</b>
+                          </p>
+                          <select class="form-control show-tick" name="category" [(ngModel)]="product.product_category_id" >
+                            <option *ngFor="let cat of categoriesArray" value="{{cat?.id}}" >{{cat?.name}}</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                          <p>
+                            <b>Supplier</b>
+                          </p>
+                          <select class="form-control show-tick" name="supplier" [(ngModel)]="product.supplier_id">
+                            <option value="">-- Please select --</option>
+                            <option value="1gghgh">Hot Dog, Fries and a Soda</option>
+                            <option value="2fjks">Burger, Shake and a Smile</option>
+                            <option value="3ddlld">Sugar, Spice and all things nice</option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                          <p>
+                            <b>Status</b>
+                          </p>
+                          <select class="form-control" name="status">
+                            <option value="">-- Please select --</option>
+                            <option value="False">False</option>
+                            <option value="True">True</option>
+                          </select>
+                        </div>
+                      </div>
+
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                      <label for="product_desc">Images</label>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-8">
+                      <div class="form-group">
+                        <div class="form-line">
+                            <div class="row">
+                                <div class="col-md-6">
+                                          <div class="form-group files">
+                                            <label>Thumb Images </label>
+                                            <input type="file" #fileThumb name="thumb_image" (change)="setThumb(fileThumb.files)" ngModel class="form-control" accept="image/*" >
+                                          </div>
+                                </div>
+                                 <div class="col-md-6">
+                                        <div class="form-group files color">
+                                            <label>Full Images </label>
+                                            <input type="file" name="full_image"  ngModel #fileFull (change)="setFull(fileFull.files)" class="form-control" accept="image/*">
+                                          </div>
+                                </div>
+                              </div>
+
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="row clearfix">
+                  <div class="col-sm-8 offset-sm-2">
+                    <button type="button"  (click)="addProduct(addForm.value)"  class="btn btn-raised btn-primary btn-round waves-effect">Add  <i class="fa fa-plus-circle"></i></button>
+                  </div>
+                </div>
+              </form>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+</section>

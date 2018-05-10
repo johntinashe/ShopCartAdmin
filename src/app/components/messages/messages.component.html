@@ -1,0 +1,129 @@
+<section class="content">
+<div class="block-header">
+    <div class="row">
+        <div class="col-lg-7 col-md-6 col-sm-12">
+            <h2>{{title}}
+                <small>Welcome to Oreo</small>
+            </h2>
+        </div>
+        <div class="col-lg-5 col-md-6 col-sm-12">
+            <button class="btn btn-white btn-icon btn-round hidden-sm-down float-right m-l-10" type="button">
+                <i class="zmdi zmdi-plus"></i>
+            </button>
+            <ul class="breadcrumb float-md-right">
+                <li class="breadcrumb-item">
+                    <a href="index.html">
+                        <i class="zmdi zmdi-home"></i> Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="javascript:void(0);">App</a>
+                </li>
+                <li class="breadcrumb-item active">Chat</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row clearfix">
+        <div class="col-lg-12 col-xl-12">
+        <div id="frame">
+            <div id="sidepanel">
+                <div id="profile">
+                    <div class="wrap">
+                        <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
+                        <p>Mike Ross</p>
+                        <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
+                        <div id="status-options">
+                            <ul>
+                                <li id="status-online" class="active">
+                                    <span class="status-circle"></span>
+                                    <p>Online</p>
+                                </li>
+                                <li id="status-away">
+                                    <span class="status-circle"></span>
+                                    <p>Away</p>
+                                </li>
+                                <li id="status-busy">
+                                    <span class="status-circle"></span>
+                                    <p>Busy</p>
+                                </li>
+                                <li id="status-offline">
+                                    <span class="status-circle"></span>
+                                    <p>Offline</p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="expanded">
+                            <label for="twitter">
+                                <i class="fa fa-facebook fa-fw" aria-hidden="true"></i>
+                            </label>
+                            <input name="twitter" type="text" value="mikeross" />
+                            <label for="twitter">
+                                <i class="fa fa-twitter fa-fw" aria-hidden="true"></i>
+                            </label>
+                            <input name="twitter" type="text" value="ross81" />
+                            <label for="twitter">
+                                <i class="fa fa-instagram fa-fw" aria-hidden="true"></i>
+                            </label>
+                            <input name="twitter" type="text" value="mike.ross" />
+                        </div>
+                    </div>
+                </div>
+                <div id="search">
+                    <label for="">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </label>
+                    <input type="text" placeholder="Search contacts..." />
+                </div>
+                
+                <div id="contacts" *ngIf="conversationsArray?.length >0 ;">
+                    <ul>
+                        <li class="contact" *ngFor=" let conversation of conversationsArray" (click)="getMessages(conversation.userid)" >
+                            <div class="wrap">
+                                <span class="contact-status online"></span>
+                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                                <div class="meta">
+                                    <p class="name">{{conversation.username}}</p>
+                                    <p class="preview">Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of
+                                        a hundred and forty six other things.</p>
+                                </div>
+                            </div>
+                        </li>
+                
+                    </ul>
+                </div>
+             
+            </div>
+        <div class="content">
+            <div class="contact-profile">
+                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                <p>Harvey Specter</p>
+            </div>
+            <div class="messages" id="ms">
+                <ul *ngFor="let msg of messagesArray">
+                        <li class="mss {{msg.from =='customer_service' ? 'replies' : 'sent'}}">
+                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                            <p>{{msg.message}}</p>
+                        </li>
+              
+                </ul>
+            </div>
+            <div class="message-input">
+                <div class="wrap">
+                    <form method="post" #messageForm="ngForm" (ngSubmit)="sendMessage()">
+                        <input type="text" placeholder="Write your message..." name="message" [(ngModel)]="mes.message" />
+                        <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                        <button class="submit">
+                            <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>
+</section>
+

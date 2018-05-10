@@ -1,0 +1,162 @@
+<section class="content  ecommerce-page">
+    <div class="block-header">
+      <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-12">
+          <h2>Orders
+            <small>Welcome to ShopCart</small>
+          </h2>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-12 text-right">
+
+          <button class="btn btn-white btn-icon btn-round hidden-sm-down float-right m-l-10" type="button">
+            <i class="zmdi zmdi-plus"></i>
+          </button>
+          <ul class="breadcrumb float-md-right">
+            <li class="breadcrumb-item">
+              <a href="/">
+                <i class="zmdi zmdi-home"></i> ShopCart</a>
+            </li>
+            <li class="breadcrumb-item active">Orders</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row clearfix">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="body">
+                  <div class="row clearfix">
+                      <div class="col-lg-3 col-md-6 col-sm-12">
+                          <div class="card info-box-2 l-seagreen">
+                              <div class="body">
+                                  <div class="icon col-12 m-t-3">
+                                      <i class="zmdi zmdi-shopping-basket"></i>
+                                  </div>
+                                  <div class="content col-12">
+                                      <div class="text" style="color: white">New Orders</div>
+                                      <div class="number" style="color: white">520</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-12">
+                          <div class="card info-box-2 l-parpl">
+                              <div class="body">
+                                  <div class="icon col-12 m-t-3">
+                                      <i class="zmdi zmdi-local-shipping"></i>
+                                  </div>
+                                  <div class="content col-12 orders-widgets">
+                                      <div class="text" style="color: white">Shipped</div>
+                                      <div class="number" style="color: white">457 512</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-12">
+                          <div class="card info-box-2 l-blue">
+                              <div class="body">
+                                  <div class="icon col-12 m-t-3">
+                                      <i class="zmdi zmdi-home"></i>
+                                  </div>
+                                  <div class="content col-12 orders-widgets">
+                                      <div class="text" style="color: white">Delivered</div>
+                                      <div class="number" style="color: white">$125 543</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-md-6 col-sm-12">
+                          <div class="card info-box-2 l-coral">
+                              <div class="body">
+                                  <div class="icon col-12 m-t-3">
+                                      <i class="zmdi zmdi-block"></i>
+                                  </div>
+                                  <div class="content col-12 orders-widgets">
+                                      <div class="text" style="color: white">Cancelled</div>
+                                      <div class="number" style="color: white">$1 063</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="row clearfix">
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="card">
+            <div class="header">
+              <h2><strong>Orders</strong> </h2>
+              <ul class="header-dropdown">
+                <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
+                  <ul class="dropdown-menu dropdown-menu-right slideUp">
+                    <li><a href="javascript:void(0);">Action</a></li>
+                    <li><a href="javascript:void(0);">Another action</a></li>
+                    <li><a href="javascript:void(0);">Something else</a></li>
+                  </ul>
+                </li>
+                <li class="remove">
+                  <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="body table-responsive members_profiles">
+              <table class="table table-hover">
+                <thead>
+                <tr>
+                  <th style="width:60px;">Order ID</th>
+                  <th>User Name</th>
+                  <th>Amount</th>
+                  <th>Order Date</th>
+                  <th>Payment</th>
+                  <th>Items</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr *ngFor="let order of ordersCollection | paginate: { itemsPerPage: 6, currentPage: p }">
+                  <td class="order_id" (click)="viewSummary(order?.id)" >{{order?.id}}</td>
+                  <td>{{order?.user_name}}</td>
+                  <td>$ {{order?.amount}}</td>
+                  <td>{{order?.placed_at | date:'dd/MM/yyyy'}}</td>
+                  <td>
+                    <i class="fa fa-cc-visa"  *ngIf="order?.brand === 'Visa'"></i>
+                    <i class="fa fa-cc-mastercard"  *ngIf="order?.brand === 'MasterCard'"></i>
+                    <i class="zmdi zmdi-money-box" *ngIf="order?.brand === 'cash'"></i>
+
+                  </td>
+                  <td>{{order?.quantity}}</td>
+                  <td>
+                      <span class="badge badge-info" *ngIf="order?.status === 'new'">new</span>
+                      <span class="badge badge-inverse-status" *ngIf="order?.status === 'shipped'">shipped</span>
+                      <span class="badge badge-success" *ngIf="order?.status === 'delivered'">delivered</span>
+                      <span class="badge badge-danger" *ngIf="order?.status === 'canclled'">canclled</span>
+                  </td>
+                  <td> <button class="btn btn-icon btn-neutral btn-icon-mini waves-float waves-green">
+                      <i class="zmdi zmdi-edit"></i>
+                  </button>
+                  <button class="btn btn-icon btn-neutral btn-icon-mini waves-effect  waves-float waves-red">
+                      <i class="zmdi zmdi-delete"></i>
+                  </button>
+                </td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+          <div class="body">
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+    </div>
+  </section>

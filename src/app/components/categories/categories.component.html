@@ -1,0 +1,168 @@
+<section class="content ecommerce-page">
+<app-header title="{{title}}"></app-header>
+<div class="container-fluid">
+
+<div class="row clearfix">
+  <div class="col-lg-12">
+      <div class="card action_bar">
+          <div class="body">
+              <div class="row clearfix">
+                  <div class="col-lg-1 col-md-2 col-3">
+                      <div class="checkbox inlineblock delete_all">
+                          <input id="deleteall" type="checkbox">
+                          <label for="deleteall">
+                              All
+                          </label>
+                      </div>
+                  </div>
+                  <div class="col-lg-5 col-md-5 col-6">
+                      <div class="input-group search">
+                      <input type="text" [(ngModel)]="searchterm" (keydown)="search($event)" class="form-control" placeholder="Search...">
+                          <span class="input-group-addon">
+                              <i class="zmdi zmdi-search"></i>
+                          </span>
+                      </div>
+                  </div>
+                  <div class="col-lg-6 col-md-5 col-3 text-right">
+                      <div class="btn-group hidden-sm-down" role="group">
+                          <div class="btn-group">
+                              <button type="button" class="btn btn-neutral dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="zmdi zmdi-label"></i>
+                                  <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu dropdown-menu-right pullDown">
+                                  <li>
+                                      <a href="javascript:void(0);">Family</a>
+                                  </li>
+                                  <li>
+                                      <a href="javascript:void(0);">Work</a>
+                                  </li>
+                                  <li>
+                                      <a href="javascript:void(0);">Google</a>
+                                  </li>
+                                  <li role="separator" class="divider"></li>
+                                  <li>
+                                      <a href="javascript:void(0);">Create a Label</a>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                      <button type="button" class="btn btn-neutral hidden-sm-down">
+                          <i class="zmdi zmdi-plus-circle"></i>
+                      </button>
+                      <button type="button" class="btn btn-neutral hidden-sm-down">
+                          <i class="zmdi zmdi-archive"></i>
+                      </button>
+                      <button type="button" class="btn btn-neutral">
+                          <i class="zmdi zmdi-delete"></i>
+                      </button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row clearfix">
+  <div class="col-lg-12">
+      <div class="card">
+          <div class="header">
+              <h2>
+                  <strong>All</strong> Categories
+                  <span>{{categories?.length}}</span>
+              </h2>
+              <ul class="header-dropdown">
+                  <li class="dropdown">
+                      <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                          <i class="zmdi zmdi-more"></i>
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-right slideUp">
+                          <li>
+                              <a href="javascript:void(0);">Action</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0);">Another action</a>
+                          </li>
+                          <li>
+                              <a href="javascript:void(0);">Something else</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+          </div>
+          <div class="body table-responsive">
+              <table class="table table-hover m-b-0 c_list">
+                  <thead>
+                      <tr>
+                              <th style="width:60px;">#</th>
+                              <th>Name</th>
+                              <th>Description</th>
+                              <th>Quantity</th>
+                              <th>Status</th>
+                              <th>Action</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let category of categories">
+                          <td>
+                              <div *ngIf="category?.catimage === 'default' || category?.catimage === ''; else load">
+                                  <img class="img-responsive"  src="http://via.placeholder.com/60x50"  alt="Image"  />
+                                </div>
+                                <ng-template #load>
+                                  <img class="img-responsive"  src="{{category.catimage}}"  alt="Image"  />
+                                </ng-template>
+                          </td>
+                          <td>{{category?.name}}</td>
+                          <td>{{category?.description}}</td>
+                          <td>{{category?.number_of_product}}</td>
+                          <td>
+                              <span class="badge  {{category?.active ? 'badge-success' : 'badge-danger'}}">{{category?.active ? 'Active' : 'Inactive'}}</span>
+                          </td>
+                          <td>
+                              <button class="btn btn-icon btn-neutral btn-icon-mini waves-float waves-green" (click)="editCategory(category?.id)">
+                                  <i class="zmdi zmdi-edit"></i>
+                              </button>
+                              <button class="btn btn-icon btn-neutral btn-icon-mini waves-effect  waves-float waves-red" (click)="deleteCategory(category?.id)">
+                                  <i class="zmdi zmdi-delete"></i>
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+
+      <div class="card">
+          <div class="body">
+              <ul class="pagination pagination-primary m-b-0">
+                  <li class="page-item">
+                      <a class="page-link" href="#">
+                          <i class="zmdi zmdi-arrow-left"></i>
+                      </a>
+                  </li>
+                  <li class="page-item active">
+                      <a class="page-link" href="#">1</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">2</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">3</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">4</a>
+                  </li>
+                  <li class="page-item">
+                      <a class="page-link" href="#">
+                          <i class="zmdi zmdi-arrow-right"></i>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+<!-- container fluid end div -->
+
+</section>

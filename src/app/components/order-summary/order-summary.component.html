@@ -1,0 +1,159 @@
+<section class="content  ecommerce-page">
+    <div class="block-header">
+        <div class="row">
+          <div class="col-lg-5 col-md-5 col-sm-12">
+            <h2>Orders
+              <small> Order Summary</small>
+            </h2>
+          </div>
+          <div class="col-lg-7 col-md-7 col-sm-12 text-right">
+
+            <button class="btn btn-white btn-icon btn-round hidden-sm-down float-right m-l-10" type="button">
+              <i class="zmdi zmdi-plus"></i>
+            </button>
+            <ul class="breadcrumb float-md-right">
+              <li class="breadcrumb-item">
+                <a href="/">
+                  <i class="zmdi zmdi-home"></i> ShopCart</a>
+              </li>
+              <li class="breadcrumb-item active">Orders</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="page-content-wrapper">
+
+          <div class="container">
+
+              <div class="row">
+                  <div class="col-12">
+                      <div class="card m-b-20">
+                          <div class="card-block">
+
+                              <div class="row">
+                                  <div class="col-12">
+                                      <div class="invoice-title">
+                                          <h4 class="pull-right font-16"><strong>Order ID: {{id}}</strong></h4>
+                                          <h3 class="m-t-0">
+                                              <img src="assets/images/logo.svg" width="50"  alt="logo"/>
+                                          </h3>
+                                      </div>
+                                      <hr>
+                                      <div class="row">
+                                          <div class="col-6">
+                                              <address>
+                                                  <strong>Billed To:</strong><br>
+                                                 {{user?.name}} {{user?.surname}}<br>
+                                                 {{user?.address}}
+                                              </address>
+                                          </div>
+                                          <div class="col-6 text-right">
+                                              <address>
+                                                  <strong>Shipped To:</strong><br>
+                                                  {{user?.name}} {{user?.surname}}<br>
+                                                 {{user?.address}}
+                                              </address>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="col-6 m-t-30">
+                                              <address>
+                                                  <strong>Payment Method:</strong><br>
+                                                  <div *ngIf="payment?.charge.brand !== 'cash'; else elseTemp">
+                                                      {{payment?.charge.brand}} ending **** {{payment?.token?.card.last4}}<br>
+                                                      {{payment?.charge.email}}
+                                                  </div>
+
+                                                  <ng-template #elseTemp>
+                                                    Cash on Delivery
+                                                    {{payment?.charge.email}}
+                                                  </ng-template>
+                                              </address>
+                                          </div>
+                                          <div class="col-6 m-t-30 text-right">
+                                              <address>
+                                                  <strong>Order Date:</strong><br>
+                                                  {{order?.placed_at | date: 'dd/MM/yyyy'}}<br><br>
+                                              </address>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-12">
+                                      <div class="panel panel-default">
+                                          <div class="p-2">
+                                              <h3 class="panel-title font-20"><strong>Order summary</strong></h3>
+                                          </div>
+                                          <div class="">
+                                              <div class="table-responsive">
+                                                  <table class="table">
+                                                      <thead>
+                                                      <tr>
+                                                          <td><strong>Item</strong></td>
+                                                          <td class="text-center"><strong>Price</strong></td>
+                                                          <td class="text-center"><strong>Quantity</strong>
+                                                          </td>
+                                                          <td class="text-right"><strong>Totals</strong></td>
+                                                      </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                      <!-- foreach ($order->lineItems as $line) or some such thing here -->
+                                                      <tr *ngFor="let prod of productsList">
+                                                          <td>{{prod?.product_name}}</td>
+                                                          <td class="text-center">${{prod?.product_price | number : '1.2-2'}}</td>
+                                                          <td class="text-center">{{prod?.data.number}}</td>
+                                                          <td class="text-right">${{prod?.data.total_price | number : '1.2-2'}}</td>
+                                                      </tr>
+
+                                                      <tr>
+                                                          <td class="thick-line"></td>
+                                                          <td class="thick-line"></td>
+                                                          <td class="thick-line text-center">
+                                                              <strong>Subtotal</strong></td>
+                                                          <td class="thick-line text-right">$670.99</td>
+                                                      </tr>
+                                                      <tr style="border-style: hidden;">
+                                                          <td class="no-line"></td>
+                                                          <td class="no-line"></td>
+                                                          <td class="no-line text-center">
+                                                              <strong>Shipping</strong></td>
+                                                          <td class="no-line text-right">$15</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td class="no-line"></td>
+                                                          <td class="no-line"></td>
+                                                          <td class="no-line text-center">
+                                                              <strong>Total</strong></td>
+                                                          <td class="no-line text-right"><h4 class="m-0">${{payment?.price}}</h4></td>
+                                                      </tr>
+
+                                                      </tbody>
+                                                  </table>
+                                              </div>
+
+                                              <div class="hidden-print">
+                                                  <div class="pull-right">
+                                                      <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a>
+                                                      <a href="#" class="btn btn-primary waves-effect waves-light">Send</a>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                  </div>
+                              </div> <!-- end row -->
+
+                          </div>
+                      </div>
+                  </div> <!-- end col -->
+              </div> <!-- end row -->
+
+          </div><!-- container -->
+
+      </div>
+
+</section>
