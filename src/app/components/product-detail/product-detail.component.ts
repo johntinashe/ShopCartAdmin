@@ -1,11 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { ActivatedRoute } from '@angular/router';
-import { Product } from '../../models/product';
-import { Subscription } from 'rxjs/Subscription';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Review } from '../../models/review';
-import { IdserviceService } from './../../services/idservice.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {ActivatedRoute} from '@angular/router';
+import {Product} from '../../models/product';
+import {Subscription} from 'rxjs/Subscription';
+import {OnDestroy} from '@angular/core/src/metadata/lifecycle_hooks';
+import {Review} from '../../models/review';
 
 @Component({
   selector: 'app-product-detail',
@@ -29,10 +28,8 @@ export class ProductDetailComponent implements OnInit , OnDestroy {
   userName: any;
   userSub: Subscription;
 
-  constructor(private db: AngularFirestore, private idservice: IdserviceService ) {
-    this.idservice.currentMessage.subscribe(res => {
-      this.id = res;
-    });
+  constructor(private db: AngularFirestore, private router: ActivatedRoute) {
+    this.id = this.router.snapshot.params['id'];
     this.getProductInfo(this.id);
     this.getNumberOfReviews(this.id);
    }

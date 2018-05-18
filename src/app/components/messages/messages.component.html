@@ -33,7 +33,6 @@
                     <div class="wrap">
                         <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
                         <p>Mike Ross</p>
-                        <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>
                         <div id="status-options">
                             <ul>
                                 <li id="status-online" class="active">
@@ -54,46 +53,34 @@
                                 </li>
                             </ul>
                         </div>
-                        <div id="expanded">
-                            <label for="twitter">
-                                <i class="fa fa-facebook fa-fw" aria-hidden="true"></i>
-                            </label>
-                            <input name="twitter" type="text" value="mikeross" />
-                            <label for="twitter">
-                                <i class="fa fa-twitter fa-fw" aria-hidden="true"></i>
-                            </label>
-                            <input name="twitter" type="text" value="ross81" />
-                            <label for="twitter">
-                                <i class="fa fa-instagram fa-fw" aria-hidden="true"></i>
-                            </label>
-                            <input name="twitter" type="text" value="mike.ross" />
-                        </div>
+
                     </div>
                 </div>
                 <div id="search">
-                    <label for="">
+                  <label>
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </label>
                     <input type="text" placeholder="Search contacts..." />
                 </div>
-                
+
                 <div id="contacts" *ngIf="conversationsArray?.length >0 ;">
                     <ul>
                         <li class="contact" *ngFor=" let conversation of conversationsArray" (click)="getMessages(conversation.userid)" >
                             <div class="wrap">
                                 <span class="contact-status online"></span>
-                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                              <img
+                                src="{{conversation.userprofile_img == 'default'?'http://emilcarlsson.se/assets/harveyspecter.png' :conversation.userprofile_img }}"
+                                alt=""/>
                                 <div class="meta">
-                                    <p class="name">{{conversation.username}}</p>
-                                    <p class="preview">Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of
-                                        a hundred and forty six other things.</p>
+                                  <p class="name">{{conversation?.username}}</p>
+                                  <p class="preview">{{conversation?.lastMsg}}</p>
                                 </div>
                             </div>
                         </li>
-                
+
                     </ul>
                 </div>
-             
+
             </div>
         <div class="content">
             <div class="contact-profile">
@@ -106,7 +93,7 @@
                             <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
                             <p>{{msg.message}}</p>
                         </li>
-              
+
                 </ul>
             </div>
             <div class="message-input">

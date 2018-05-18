@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { AfterViewInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/observable';
-import { Notification } from './../../models/notification';
-import { Subscription } from 'rxjs/Subscription';
-import { IdserviceService } from './../../services/idservice.service';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from '../../services/auth.service';
+import {OnDestroy} from '@angular/core/src/metadata/lifecycle_hooks';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Notification} from './../../models/notification';
+import {Subscription} from 'rxjs/Subscription';
+import {IdserviceService} from './../../services/idservice.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -20,9 +20,10 @@ export class NavbarComponent implements OnInit , OnDestroy {
   productSubcription: Subscription;
   notificationSubcritption: Subscription;
   notisArray: Array<Notification>;
-  constructor(private auth: AuthService, private db: AngularFirestore ,
-  private idservice: IdserviceService) {
-   // this.getNotifications();
+
+  constructor(private auth: AuthService, private db: AngularFirestore, private idservice: IdserviceService,
+              private router: Router) {
+    this.getNotifications();
   }
 
   ngOnInit() {
@@ -45,6 +46,7 @@ export class NavbarComponent implements OnInit , OnDestroy {
         this.prod = this.db.collection('products').doc(data.product_id).valueChanges();
         this.productSubcription = this.prod.subscribe(res => {
           data.product_name = res.product_name;
+          data.product_thumb = res.product_thumb_image;
         });
           return data;
       });
@@ -58,6 +60,10 @@ export class NavbarComponent implements OnInit , OnDestroy {
   ngOnDestroy(): void {
   //  this.notificationSubcritption.unsubscribe();
   //  this.productSubcription.unsubscribe();
+  }
+
+  viewItem(id) {
+    this.router.navigateByUrl('/products/product-detail');
   }
 
 

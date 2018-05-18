@@ -18,11 +18,12 @@
                 <li class="body">
                     <ul class="menu list-unstyled" >
                         <li *ngFor="let notification of notisArray">
-                            <a href="javascript:void(0);">
-                                <div class="media">
-                                    <img class="media-object" src="assets/images/xs/avatar2.jpg" alt="">
+                          <a href="">
+                            <div class="media" (click)="viewItem(notification?.product_id)">
+                              <img width="50px" height="50px" class="media-object" src="{{notification?.product_thumb}}"
+                                   alt="">
                                     <div class="media-body">
-                                        <span class="name">{{notification?.product_name}} <span class="time">30min ago</span></span>
+                                      <span class="name">{{notification?.product_name}} </span>
                                         <span class="message">Out of Stock</span>
                                     </div>
                                 </div>

@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Message } from '../../models/message';
-import { Conversation } from '../../models/conversation';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { AfterViewInit } from '@angular/core/src/metadata/lifecycle_hooks';
-import { firestore } from 'firebase/app';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs/Observable';
+import {Message} from '../../models/message';
+import {Conversation} from '../../models/conversation';
+import {AngularFirestore} from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 
 @Component({
@@ -47,6 +45,10 @@ export class MessagesComponent implements OnInit  {
       return changes.map(a => {
         const data = a.payload.doc.data() as Conversation;
         data.userid = a.payload.doc.id;
+        this.afs.collection('users').doc(data.userid).valueChanges().subscribe(user => {
+          data.username = user.name + ' ' + user.surname;
+          data.userprofile_img = user.thumb_image;
+        });
         return data;
       });
     });
@@ -54,7 +56,6 @@ export class MessagesComponent implements OnInit  {
     this.conversations.subscribe(convers => {
       this.conversationsArray = convers;
     });
-
 
   }
 
@@ -80,6 +81,7 @@ export class MessagesComponent implements OnInit  {
     this.afs.collection('messages').doc(this.user_id).collection('userQueries')
       .add(this.mes)
       .then(res => {
+        this.afs.collection('messages').doc(this.user_id).set({lastMsg: this.mes.message}, {merge: true});
         this.mes.message = '';
       });
   }

@@ -1,6 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import { IdserviceService } from './services/idservice.service';
+import {IdserviceService} from './services/idservice.service';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import {RouterModule, Routes} from '@angular/router';
 import {AngularFireModule} from 'angularfire2';
@@ -24,15 +24,15 @@ import {AuthGuard} from './services/auth.guard';
 import {ProductsListComponent} from './components/products-list/products-list.component';
 import {AddProductComponent} from './components/add-product/add-product.component';
 import {HeaderComponent} from './components/header/header.component';
-import { UserProfileComponent } from './components/user-profile/user-profile.component';
-import { ProductDetailComponent } from './components/product-detail/product-detail.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {ProductDetailComponent} from './components/product-detail/product-detail.component';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { ManageCategoryComponent } from './components/manage-category/manage-category.component';
-import { TruncateModule } from 'ng2-truncate';
-import { NotificationService } from './services/notification.service';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { OrdersComponent } from './components/orders/orders.component';
-import { OrderSummaryComponent } from './components/order-summary/order-summary.component';
+import {ManageCategoryComponent} from './components/manage-category/manage-category.component';
+import {TruncateModule} from 'ng2-truncate';
+import {NotificationService} from './services/notification.service';
+import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {OrdersComponent} from './components/orders/orders.component';
+import {OrderSummaryComponent} from './components/order-summary/order-summary.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -44,11 +44,11 @@ const appRoutes: Routes = [
   {path: 'products', component: ProductsListComponent, canActivate: [AuthGuard]},
   {path: 'products/add-product', component: AddProductComponent, canActivate: [AuthGuard]},
   {path: 'users/user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
-  {path: 'products/product-detail', component: ProductDetailComponent, canActivate: [AuthGuard]},
+  {path: 'products/product-detail/:id', component: ProductDetailComponent, canActivate: [AuthGuard]},
   {path: 'categories/manage-category', component: ManageCategoryComponent, canActivate: [AuthGuard]},
   {path: 'page_not_found' , component: PageNotFoundComponent , canActivate: [AuthGuard]},
   {path: 'orders' , component: OrdersComponent , canActivate: [AuthGuard]},
-  {path: 'orders/order-summary', component: OrderSummaryComponent, canActivate: [AuthGuard]},
+  {path: 'orders/order-summary/:id', component: OrderSummaryComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: 'page_not_found'}
 
 ];

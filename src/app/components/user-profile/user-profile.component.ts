@@ -1,11 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Subscription } from 'rxjs/Subscription';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Favorite } from '../../models/favorite';
-import { IdserviceService } from '../../services/idservice.service';
-import { User } from '../../models/user';
-import { ToastrService } from 'ngx-toastr';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Subscription} from 'rxjs/Subscription';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Favorite} from '../../models/favorite';
+import {IdserviceService} from '../../services/idservice.service';
+import {User} from '../../models/user';
+import {ToastrService} from 'ngx-toastr';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-profile',
@@ -49,6 +50,11 @@ export class UserProfileComponent implements OnInit , OnDestroy {
    this.userChange = this.db.collection('users').doc(id).valueChanges();
    this.userSubcription = this.userChange.subscribe(res => {
      this.user = res;
+     if (res == null) {
+       swal('Error!', 'Sorry no user found!', 'error')
+         .catch((err) => {
+         });
+     }
    });
   }
 
@@ -60,6 +66,7 @@ export class UserProfileComponent implements OnInit , OnDestroy {
          this.favSub = this.favChange.subscribe(res => {
           data.product_name = res.product_name;
           data.product_price = res.product_price;
+           data.product_image = res.product_thumb_image;
         });
         data.product_id = a.payload.doc.id;
         return data;
@@ -80,7 +87,7 @@ export class UserProfileComponent implements OnInit , OnDestroy {
 
   goToInfo(id) {
     this.idservice.passId(id);
-    this.route.navigateByUrl('/products/product-detail');
+    this.route.navigateByUrl('/products/product-detail/' + id);
   }
 
   getSettingsInfo() {

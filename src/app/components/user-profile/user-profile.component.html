@@ -8,7 +8,7 @@
       </div>
       <div class="col-lg-5 col-md-6 col-sm-12">
         <ul class="breadcrumb float-md-right">
-          <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> ShopCart</a></li>
+          <li class="breadcrumb-item"><a href=""><i class="zmdi zmdi-home"></i> ShopCart</a></li>
           <li class="breadcrumb-item"><a [routerLink]="['/users']">Users</a></li>
           <li class="breadcrumb-item active">Profile</li>
         </ul>
@@ -135,15 +135,15 @@
                                 <div class="card product_item">
                                     <div class="body">
                                         <div class="cp_img">
-                                            <img src="assets/images/ecommerce/1.png" alt="Product" class="img-fluid" />
+                                          <img src="{{favorite?.product_image}}" alt="Product" class="img-fluid"/>
                                             <div class="hover">
                                                 <a (click)="goToInfo(favorite?.product_id)" class="btn btn-primary waves-effect"><i class="zmdi zmdi-eye"></i></a>
                                             </div>
                                         </div>
                                         <div class="product_details">
-                                            <h5><a href="ec-product-detail.html">{{favorite?.product_name}}</a></h5>
+                                          <h5><a href="">{{favorite?.product_name}}</a></h5>
                                             <ul class="product_price list-unstyled">
-                                                <li class="new_price">{{favorite?.product_price}} DT</li>
+                                              <li class="new_price">${{favorite?.product_price}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@
                                           </div>
                                       </div>
                                       <div class="product_details">
-                                          <h5><a href="ec-product-detail.html">{{favorite?.product_name}}</a></h5>
+                                        <h5><a href="">{{favorite?.product_name}}</a></h5>
                                           <ul class="product_price list-unstyled">
                                               <li class="new_price">{{favorite?.product_price}} DT</li>
                                           </ul>

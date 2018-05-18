@@ -1,21 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Subscription } from 'rxjs/Subscription';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Order } from '../../models/order';
-import { Payment } from '../../models/payment';
-import { User } from '../../models/user';
-import { IdserviceService } from './../../services/idservice.service';
-import { OrderItem } from './../../models/orderItem';
-import { Product } from '../../models/product';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Order} from '../../models/order';
+import {Payment} from '../../models/payment';
+import {User} from '../../models/user';
+import {IdserviceService} from '../../services/idservice.service';
+import {OrderItem} from '../../models/orderItem';
+import {Product} from '../../models/product';
 
 @Component({
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.css']
 })
-export class OrderSummaryComponent implements OnInit , OnDestroy {
+export class OrderSummaryComponent implements OnInit {
 
   id = '';
   sub: Subscription;
@@ -28,14 +27,10 @@ export class OrderSummaryComponent implements OnInit , OnDestroy {
   prdSub: any;
   productsList?: any;
 
-  constructor(private idservice: IdserviceService , private db: AngularFirestore) {
-    this.sub = this.idservice.currentMessage.subscribe(res => {
-      this.id = res;
-      if (this.id !== '') {
+  constructor(private idservice: IdserviceService, private db: AngularFirestore, private router: ActivatedRoute) {
+    this.id = router.snapshot.params['id'];
         this.getOrderSummary();
         this.getOrderProducts();
-      }
-    });
   }
 
   ngOnInit() {
@@ -48,13 +43,11 @@ export class OrderSummaryComponent implements OnInit , OnDestroy {
         data.id = a.payload.id;
 
       this.db.collection('users').doc(data.user_id).collection('payments').doc(this.id).snapshotChanges().subscribe(pay => {
-       const payment = pay.payload.data() as Payment;
-       this.payment = payment;
+        this.payment = pay.payload.data() as Payment;
      });
 
      this.db.collection('users').doc(data.user_id).snapshotChanges().subscribe(us => {
-       const user = us.payload.data() as User;
-       this.user = user;
+       this.user = us.payload.data() as User;
      });
         return data;
     });
@@ -74,7 +67,6 @@ export class OrderSummaryComponent implements OnInit , OnDestroy {
         pds.pId = prds.payload.doc.id;
 
         this.db.collection('products').doc(pds.id).snapshotChanges().subscribe(a => {
-          console.log('product' , a);
           const p = a.payload.data() as Product;
           pds.product_price = p.product_price;
           pds.product_name = p.product_name;
@@ -90,8 +82,5 @@ export class OrderSummaryComponent implements OnInit , OnDestroy {
 
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
 
 }

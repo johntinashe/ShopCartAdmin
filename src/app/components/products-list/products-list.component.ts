@@ -1,14 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Subscription } from 'rxjs/Subscription';
-import { Product } from '../../models/product';
-import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Router } from '@angular/router';
-import { IdserviceService } from '../../services/idservice.service';
+import {Component, OnInit} from '@angular/core';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Subscription} from 'rxjs/Subscription';
+import {Product} from '../../models/product';
+import {OnDestroy} from '@angular/core/src/metadata/lifecycle_hooks';
+import {Router} from '@angular/router';
+import {IdserviceService} from '../../services/idservice.service';
 import swal from 'sweetalert2';
-import { TruncateModule } from 'ng2-truncate';
-import { ToastrService } from 'ngx-toastr';
-import { NotificationService } from './../../services/notification.service';
+import {ToastrService} from 'ngx-toastr';
+import {NotificationService} from './../../services/notification.service';
 
 @Component({
   selector: 'app-products-list',
@@ -50,8 +49,7 @@ export class ProductsListComponent implements OnInit , OnDestroy {
   }
 
   goToInfo(id) {
-    this.idservice.passId(id);
-    this.router.navigateByUrl('/products/product-detail');
+    this.router.navigateByUrl('/products/product-detail/' + id);
   }
 
   deleteProduct(id: string) {
