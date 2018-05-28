@@ -296,14 +296,15 @@ body {
 }
 #frame #sidepanel #search label {
   position: absolute;
-  margin: 10px 0 0 20px;
+  margin: 1.2em 0 0 20px;
 }
 #frame #sidepanel #search input {
   font-family: "proxima-nova",  "Source Sans Pro", sans-serif;
   padding: 10px 0 10px 46px;
   width: calc(100%);
+  height: 60px;
   border: none;
-  color: #8d0e0e;
+  color: #88858d;
 }
 #frame #sidepanel #search input:focus {
   outline: none;
@@ -405,7 +406,7 @@ body {
 }
 @media screen and (max-width: 803px) {
   #frame #sidepanel #contacts ul li.contact .wrap img {
-    margin-right: 0px;
+    margin-right: 0;
   }
 }
 #frame #sidepanel #contacts ul li.contact .wrap .meta {
@@ -672,7 +673,7 @@ body {
 }
 
 .messages ul{
-    padding-left:0; 
+  padding-left: 0;
 }
 
 .messages ul li p {

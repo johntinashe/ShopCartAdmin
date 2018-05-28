@@ -18,12 +18,14 @@ export class OrdersComponent implements OnInit {
   newOrders: any;
   shippedOrders: any;
   deliveredOrders: any;
+  cancelledOrders: any;
 
   constructor(private db: AngularFirestore , private router: Router , private idservice: IdserviceService) {
     this.getOrders();
     this.getNewNumber();
     this.getDeliveredNumber();
     this.getShippedNumber();
+    this.getCancelled();
   }
 
   ngOnInit() {
@@ -74,6 +76,13 @@ export class OrdersComponent implements OnInit {
     this.db.collection('orders', ref => ref.where('status', '==', 'new')).valueChanges()
       .subscribe(res => {
         this.newOrders = res;
+      });
+  }
+
+  getCancelled() {
+    this.db.collection('orders', ref => ref.where('status', '==', 'cancelled')).valueChanges()
+      .subscribe(res => {
+        this.cancelledOrders = res;
       });
   }
 

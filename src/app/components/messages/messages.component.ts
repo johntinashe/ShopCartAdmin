@@ -4,6 +4,7 @@ import {Message} from '../../models/message';
 import {Conversation} from '../../models/conversation';
 import {AngularFirestore} from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
+import {User} from './../../models/user';
 
 @Component({
   selector: 'app-messages',
@@ -19,6 +20,7 @@ export class MessagesComponent implements OnInit  {
 
   array: Message[];
   user_id: string;
+  searchterm: any;
 
   mes: Message = {
     message: '',
@@ -30,6 +32,8 @@ export class MessagesComponent implements OnInit  {
     seen: true,
 
   };
+  srcImg: any;
+  nm: any;
 
   constructor(private afs: AngularFirestore) {
   }
@@ -38,6 +42,12 @@ export class MessagesComponent implements OnInit  {
     this.getConversations();
   }
 
+  getClickedUser(id) {
+    this.afs.collection('users').doc(id).valueChanges().subscribe(user => {
+      this.srcImg = user.thumb_image;
+      this.nm = user.name;
+    });
+  }
 
 
   getConversations(): void {
@@ -45,9 +55,10 @@ export class MessagesComponent implements OnInit  {
       return changes.map(a => {
         const data = a.payload.doc.data() as Conversation;
         data.userid = a.payload.doc.id;
-        this.afs.collection('users').doc(data.userid).valueChanges().subscribe(user => {
-          data.username = user.name + ' ' + user.surname;
-          data.userprofile_img = user.thumb_image;
+        this.afs.collection('users').doc(data.userid).snapshotChanges().subscribe(user => {
+          const u = user.payload.data() as User;
+          data.username = u.name + ' ' + u.surname;
+          data.userprofile_img = u.thumb_image;
         });
         return data;
       });
@@ -60,6 +71,7 @@ export class MessagesComponent implements OnInit  {
   }
 
   getMessages(id: string): void {
+    this.getClickedUser(id);
     this.messages = this.afs.collection('messages').doc(id).collection('userQueries', ref => ref.orderBy('time', 'desc'))
       .snapshotChanges().map(changes => {
         return changes.map(a => {
@@ -81,7 +93,7 @@ export class MessagesComponent implements OnInit  {
     this.afs.collection('messages').doc(this.user_id).collection('userQueries')
       .add(this.mes)
       .then(res => {
-        this.afs.collection('messages').doc(this.user_id).set({lastMsg: this.mes.message}, {merge: true});
+        this.afs.collection('messages').doc(this.user_id).set({lastMsg: this.mes.message});
         this.mes.message = '';
       });
   }

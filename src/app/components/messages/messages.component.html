@@ -29,47 +29,22 @@
         <div class="col-lg-12 col-xl-12">
         <div id="frame">
             <div id="sidepanel">
-                <div id="profile">
-                    <div class="wrap">
-                        <img id="profile-img" src="http://emilcarlsson.se/assets/mikeross.png" class="online" alt="" />
-                        <p>Mike Ross</p>
-                        <div id="status-options">
-                            <ul>
-                                <li id="status-online" class="active">
-                                    <span class="status-circle"></span>
-                                    <p>Online</p>
-                                </li>
-                                <li id="status-away">
-                                    <span class="status-circle"></span>
-                                    <p>Away</p>
-                                </li>
-                                <li id="status-busy">
-                                    <span class="status-circle"></span>
-                                    <p>Busy</p>
-                                </li>
-                                <li id="status-offline">
-                                    <span class="status-circle"></span>
-                                    <p>Offline</p>
-                                </li>
-                            </ul>
-                        </div>
 
-                    </div>
-                </div>
                 <div id="search">
                   <label>
                         <i class="fa fa-search" aria-hidden="true"></i>
                     </label>
-                    <input type="text" placeholder="Search contacts..." />
+                  <input type="text" placeholder="Search contacts..." [(ngModel)]="searchterm"/>
                 </div>
 
                 <div id="contacts" *ngIf="conversationsArray?.length >0 ;">
                     <ul>
-                        <li class="contact" *ngFor=" let conversation of conversationsArray" (click)="getMessages(conversation.userid)" >
+                      <li class="contact" *ngFor=" let conversation of conversationsArray |  filter:searchterm "
+                          (click)="getMessages(conversation.userid)">
                             <div class="wrap">
                                 <span class="contact-status online"></span>
                               <img
-                                src="{{conversation.userprofile_img == 'default'?'http://emilcarlsson.se/assets/harveyspecter.png' :conversation.userprofile_img }}"
+                                src="{{conversation.userprofile_img == 'default'?'assets/images/avatar.png' :conversation.userprofile_img }}"
                                 alt=""/>
                                 <div class="meta">
                                   <p class="name">{{conversation?.username}}</p>
@@ -84,13 +59,14 @@
             </div>
         <div class="content">
             <div class="contact-profile">
-                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                <p>Harvey Specter</p>
+              <img src="{{srcImg}}" alt=""/>
+              <p>{{nm}}</p>
             </div>
             <div class="messages" id="ms">
                 <ul *ngFor="let msg of messagesArray">
                         <li class="mss {{msg.from =='customer_service' ? 'replies' : 'sent'}}">
-                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                          <img *ngIf="msg.from !== 'customer_service'"
+                               src="{{srcImg == 'default' ? 'assets/images/avatar.png' : srcImg}}" alt=""/>
                             <p>{{msg.message}}</p>
                         </li>
 

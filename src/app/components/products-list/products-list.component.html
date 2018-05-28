@@ -3,13 +3,12 @@
     <div class="row">
       <div class="col-lg-7 col-md-6 col-sm-12">
         <h2>Product List ({{productsArray?.length}})
-          <small>Welcome to Oreo</small>
+          <small>Welcome to ShopCart</small>
         </h2>
       </div>
       <div class="col-lg-5 col-md-6 col-sm-12">
         <ul class="breadcrumb float-md-right">
-          <li class="breadcrumb-item"><a href="index.html"><i class="zmdi zmdi-home"></i> Oreo</a></li>
-          <li class="breadcrumb-item"><a href="ec-dashboard.html">eCommerce</a></li>
+          <li class="breadcrumb-item"><a href="/"><i class="zmdi zmdi-home"></i> ShopCart</a></li>
           <li class="breadcrumb-item active">Product List </li>
         </ul>
       </div>
@@ -17,59 +16,25 @@
   </div>
 
   <div class="container-fluid">
+
       <div class="row clearfix">
           <div class="col-lg-12">
               <div class="card action_bar">
                   <div class="body">
                       <div class="row clearfix">
-                          <div class="col-lg-1 col-md-2 col-3">
-                              <div class="checkbox inlineblock delete_all">
-                                  <input id="deleteall" type="checkbox">
-                                  <label for="deleteall">
-                                      All
-                                  </label>
-                              </div>
-                          </div>
                           <div class="col-lg-5 col-md-5 col-6">
                               <div class="input-group search">
-                              <input type="text"  class="form-control" placeholder="Search...">
+                                <input type="text" [(ngModel)]="searchterm" class="form-control"
+                                       placeholder="Search...">
                                   <span class="input-group-addon">
                                       <i class="zmdi zmdi-search"></i>
                                   </span>
                               </div>
                           </div>
                           <div class="col-lg-6 col-md-5 col-3 text-right">
-                              <div class="btn-group hidden-sm-down" role="group">
-                                  <div class="btn-group">
-                                      <button type="button" class="btn btn-neutral dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                          <i class="zmdi zmdi-label"></i>
-                                          <span class="caret"></span>
-                                      </button>
-                                      <ul class="dropdown-menu dropdown-menu-right pullDown">
-                                          <li>
-                                              <a href="javascript:void(0);">Family</a>
-                                          </li>
-                                          <li>
-                                              <a href="javascript:void(0);">Work</a>
-                                          </li>
-                                          <li>
-                                              <a href="javascript:void(0);">Google</a>
-                                          </li>
-                                          <li role="separator" class="divider"></li>
-                                          <li>
-                                              <a href="javascript:void(0);">Create a Label</a>
-                                          </li>
-                                      </ul>
-                                  </div>
-                              </div>
-                              <button type="button" class="btn btn-neutral hidden-sm-down">
+
+                            <button (click)="add()" type="button" class="btn btn-neutral">
                                   <i class="zmdi zmdi-plus-circle"></i>
-                              </button>
-                              <button type="button" class="btn btn-neutral hidden-sm-down">
-                                  <i class="zmdi zmdi-archive"></i>
-                              </button>
-                              <button type="button" class="btn btn-neutral">
-                                  <i class="zmdi zmdi-delete"></i>
                               </button>
                           </div>
                       </div>
@@ -94,19 +59,21 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let prod of productsArray | paginate: { itemsPerPage: 6, currentPage: p }">
+              <tr
+                *ngFor="let prod of productsArray | filter: searchterm | paginate: { itemsPerPage: 6, currentPage: p }">
 
                 <td  (click)="goToInfo(prod?.product_id)" ><img src="{{prod?.product_thumb_image}}" width="48" alt="Product img"></td>
                 <td  (click)="goToInfo(prod?.product_id)" ><h5>{{prod?.product_name | words : 2}}</h5></td>
                 <td  (click)="goToInfo(prod?.product_id)" ><span class="text-muted">{{prod?.product_short_desc | words : 3}}</span>
                 </td>
-                <td  (click)="goToInfo(prod?.product_id)" >{{prod?.product_price}} DT</td>
+                <td (click)="goToInfo(prod?.product_id)">${{prod?.product_price}}</td>
                 <td  (click)="goToInfo(prod?.product_id)" ><span class="col-green">In Stock</span></td>
                 <td id="qty{{prod?.product_id}}"><span id="{{prod?.product_id}}" class="col-green" (click)="inputField(prod?.product_id)">{{prod?.product_quantity}}</span>
                   <input type="number" class='form-control'  id="quantity{{prod?.product_id}}" name="quantity" (keyup.enter)="updateQuantity(prod?.product_id ,prod?.product_quantity)" style="display:none; width:90px;"/>
                 </td>
                 <td>
-                  <button class="btn btn-icon btn-neutral btn-icon-mini waves-float waves-green">
+                  <button class="btn btn-icon btn-neutral btn-icon-mini waves-float waves-green"
+                          (click)="editProduct(prod.product_id)">
                     <i class="zmdi zmdi-edit"></i>
                   </button>
                   <button (click)="deleteProduct(prod?.product_id)" class="btn btn-icon btn-neutral btn-icon-mini waves-effect  waves-float waves-red" data-type="confirm">

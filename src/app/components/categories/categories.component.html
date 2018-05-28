@@ -17,7 +17,7 @@
                   </div>
                   <div class="col-lg-5 col-md-5 col-6">
                       <div class="input-group search">
-                      <input type="text" [(ngModel)]="searchterm" (keydown)="search($event)" class="form-control" placeholder="Search...">
+                        <input type="text" [(ngModel)]="searchterm" class="form-control" placeholder="Search...">
                           <span class="input-group-addon">
                               <i class="zmdi zmdi-search"></i>
                           </span>
@@ -103,7 +103,8 @@
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let category of categories">
+                  <tr
+                    *ngFor="let category of categories | filter:searchterm | paginate: { itemsPerPage: 6, currentPage: p }">
                           <td>
                               <div *ngIf="category?.catimage === 'default' || category?.catimage === ''; else load">
                                   <img class="img-responsive"  src="http://via.placeholder.com/60x50"  alt="Image"  />
@@ -131,33 +132,9 @@
               </table>
           </div>
       </div>
-
       <div class="card">
           <div class="body">
-              <ul class="pagination pagination-primary m-b-0">
-                  <li class="page-item">
-                      <a class="page-link" href="#">
-                          <i class="zmdi zmdi-arrow-left"></i>
-                      </a>
-                  </li>
-                  <li class="page-item active">
-                      <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">2</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">3</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">4</a>
-                  </li>
-                  <li class="page-item">
-                      <a class="page-link" href="#">
-                          <i class="zmdi zmdi-arrow-right"></i>
-                      </a>
-                  </li>
-              </ul>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
       </div>
   </div>

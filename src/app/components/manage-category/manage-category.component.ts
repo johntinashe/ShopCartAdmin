@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Category } from './../../models/category';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { IdserviceService } from '../../services/idservice.service';
-import { ToastrService } from 'ngx-toastr';
-import { FirebaseApp } from 'angularfire2';
+import {Component, OnInit} from '@angular/core';
+import {Category} from './../../models/category';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {ToastrService} from 'ngx-toastr';
+import {FirebaseApp} from 'angularfire2';
 import 'firebase/storage';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-manage-category',
@@ -29,12 +29,13 @@ export class ManageCategoryComponent implements OnInit {
   path:  any = '';
   imgSrc: any;
   newImg = false;
-  constructor(private db: AngularFirestore, private idservice: IdserviceService, private toast: ToastrService,
-    private firebaseApp: FirebaseApp) {
-    this.idservice.currentMessage.subscribe(id => {
-      this.id = id;
-    });
-    if (this.id !== 'default' && this.id !== '') {
+
+  constructor(private db: AngularFirestore, private router: ActivatedRoute, private toast: ToastrService,
+              private firebaseApp: FirebaseApp) {
+
+    this.id = this.router.snapshot.params['id'];
+    console.log(this.id);
+    if (this.id !== 'default' && this.id !== '' && this.id !== undefined) {
       this.getCategory();
     }
    }
@@ -44,7 +45,6 @@ export class ManageCategoryComponent implements OnInit {
 
   setFull(full) {
     if (full.length > 0) {
-     // this.category.catimage = 'default';
       this.img = full[0];
       console.log( this.img);
       if (this.id !== '') {
@@ -149,7 +149,7 @@ export class ManageCategoryComponent implements OnInit {
     this.catChange.subscribe(res => {
       this.category.name = res.name;
       this.category.description = res.description;
-      this.category.catimage = res.image_url;
+      this.category.catimage = res.catimage;
       this.category.active = res.active;
     });
   }

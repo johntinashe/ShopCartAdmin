@@ -8,6 +8,7 @@ import {IdserviceService} from '../../services/idservice.service';
 import swal from 'sweetalert2';
 import {ToastrService} from 'ngx-toastr';
 import {NotificationService} from './../../services/notification.service';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'app-products-list',
@@ -20,6 +21,13 @@ export class ProductsListComponent implements OnInit , OnDestroy {
   productsArray: any;
   prodChange: any;
   newquantity: any;
+
+  // search variables
+  searchterm: string;
+  startAt = new Subject();
+  endAt = new Subject();
+  startobs = this.startAt.asObservable();
+  endobs = this.endAt.asObservable();
 
   constructor(private db: AngularFirestore, private router: Router , private idservice: IdserviceService,
   private toast: ToastrService, private sendNoti: NotificationService) {
@@ -133,5 +141,11 @@ export class ProductsListComponent implements OnInit , OnDestroy {
     }
   }
 
+  editProduct(id) {
+    this.router.navigateByUrl('products/edit-product/' + id);
+  }
 
+  add() {
+    this.router.navigateByUrl('products/add-product');
+  }
 }

@@ -7,4 +7,5 @@ export interface Order {
   amount?: any;
   brand?: any;
   user_name?: any;
+  shipped_at?: any;
 }

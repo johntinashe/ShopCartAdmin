@@ -1,12 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { Category } from '../../models/category';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import {AngularFirestore} from 'angularfire2/firestore';
+import {Category} from '../../models/category';
+import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/observable/combineLatest';
 import swal from 'sweetalert2';
-import { IdserviceService } from '../../services/idservice.service';
-import { Route, Router } from '@angular/router';
+import {IdserviceService} from '../../services/idservice.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-categories',
@@ -17,23 +16,13 @@ export class CategoriesComponent implements OnInit {
   title = 'Categories';
   categoriesCollection: Observable<Category[]>;
   categories: any;
-   searchterm: string;
-  startAt = new Subject();
-  endAt = new Subject();
-  startobs = this.startAt.asObservable();
-  endobs = this.endAt.asObservable();
-  catImage: any;
+  searchterm: string;
 
   constructor(private afs: AngularFirestore , private idservice: IdserviceService , private route: Router) {
   }
 
   ngOnInit() {
     this.getCategories();
-    Observable.combineLatest(this.startobs, this.endobs).subscribe((value) => {
-      this.firequery(value[0], value[1]).subscribe((categoriesArray) => {
-        this.categories = categoriesArray;
-      });
-    });
   }
 
   getCategories(): void {
@@ -42,6 +31,11 @@ export class CategoriesComponent implements OnInit {
       return changes.map(a => {
         const data = a.payload.doc.data() as Category;
         data.id = a.payload.doc.id;
+
+        this.afs.collection('products', ref => ref.where('product_category_id', '==', data.id))
+          .valueChanges().subscribe(prods => {
+          data.number_of_product = prods.length;
+        });
         return data;
       });
     });
@@ -49,21 +43,6 @@ export class CategoriesComponent implements OnInit {
     this.categoriesCollection.subscribe(categoriesArray => {
       this.categories = categoriesArray;
     });
-  }
-
-  search($event) {
-    const q = $event.target.value;
-    if (q !== '') {
-      this.startAt.next(q);
-      this.endAt.next(q + '\uf8ff');
-    } else {
-     this.getCategories();
-    }
-  }
-
-
-  firequery(start, end) {
-    return this.afs.collection('categories', ref => ref.limit(5).orderBy('name').startAt(start).endAt(end)).valueChanges();
   }
 
   deleteCategory(id: string) {
@@ -109,8 +88,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   editCategory(id) {
-    this.idservice.passId(id);
-    this.route.navigate(['/categories/manage-category']);
+    this.route.navigate(['/categories/manage-category/' + id]);
   }
 
 

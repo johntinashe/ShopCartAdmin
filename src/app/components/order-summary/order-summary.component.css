@@ -1,0 +1,9 @@
+.badge-inverse-status {
+  background-color: #fff;
+  border-color: rgb(63, 129, 120);
+  color: rgb(63, 129, 120)
+}
+
+.order_id:hover {
+  cursor: pointer;
+}

@@ -35,7 +35,8 @@
                               <div class="row">
                                   <div class="col-12">
                                       <div class="invoice-title">
-                                          <h4 class="pull-right font-16"><strong>Order ID: {{id}}</strong></h4>
+                                        <h4 class="pull-right font-16"><strong>Order ID: {{id}}</strong>
+                                        </h4>
                                           <h3 class="m-t-0">
                                               <img src="assets/images/logo.svg" width="50"  alt="logo"/>
                                           </h3>
@@ -81,6 +82,21 @@
                                       </div>
                                   </div>
                               </div>
+
+                            <div class="row">
+                              <div class="col-lg-12">
+                                <strong>Status:</strong><br>
+                                <small>
+                                  <span class="badge badge-info" *ngIf="order?.status === 'new'">new</span>
+                                  <span class="badge badge-inverse-status"
+                                        *ngIf="order?.status === 'shipped'">shipped</span>
+                                  <span class="badge badge-success"
+                                        *ngIf="order?.status === 'delivered'">delivered</span>
+                                  <span class="badge badge-danger"
+                                        *ngIf="order?.status === 'cancelled'">cancelled</span>
+                                </small>
+                              </div>
+                            </div>
 
                               <div class="row">
                                   <div class="col-12">

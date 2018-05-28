@@ -67,7 +67,7 @@
                               </div>
                           </div>
                       </div>
-                      <div class="col-lg-3 col-md-6 col-sm-12">
+                    <div class="col-lg-3 col-md-6 col-sm-12" (click)="getOrdersByStatus('cancelled')">
                           <div class="card info-box-2 l-coral">
                               <div class="body">
                                   <div class="icon col-12 m-t-3">
@@ -75,7 +75,7 @@
                                   </div>
                                   <div class="content col-12 orders-widgets">
                                       <div class="text" style="color: white">Cancelled</div>
-                                      <div class="number" style="color: white">$1 063</div>
+                                    <div class="number" style="color: white">{{deliveredOrders?.length}}</div>
                                   </div>
                               </div>
                           </div>
@@ -94,13 +94,13 @@
               <ul class="header-dropdown">
                 <li class="dropdown"> <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <i class="zmdi zmdi-more"></i> </a>
                   <ul class="dropdown-menu dropdown-menu-right slideUp">
-                    <li><a href="javascript:void(0);">Action</a></li>
-                    <li><a href="javascript:void(0);">Another action</a></li>
-                    <li><a href="javascript:void(0);">Something else</a></li>
+                    <li><a href="javascript:void(0);">Order By Date</a></li>
+                    <li><a href="javascript:void(0);">Order User Name</a></li>
+                    <li><a href="javascript:void(0);">Order By Amount</a></li>
                   </ul>
                 </li>
                 <li class="remove">
-                  <a role="button" class="boxs-close"><i class="zmdi zmdi-close"></i></a>
+                  <a role="button" (click)="getOrders()" class="boxs-close"><i class="zmdi zmdi-refresh"></i></a>
                 </li>
               </ul>
             </div>
@@ -136,7 +136,7 @@
                       <span class="badge badge-info" *ngIf="order?.status === 'new'">new</span>
                       <span class="badge badge-inverse-status" *ngIf="order?.status === 'shipped'">shipped</span>
                       <span class="badge badge-success" *ngIf="order?.status === 'delivered'">delivered</span>
-                      <span class="badge badge-danger" *ngIf="order?.status === 'canclled'">canclled</span>
+                    <span class="badge badge-danger" *ngIf="order?.status === 'cancelled'">canclled</span>
                   </td>
                   <td> <button class="btn btn-icon btn-neutral btn-icon-mini waves-float waves-green">
                       <i class="zmdi zmdi-edit"></i>

@@ -11,10 +11,10 @@
                 </button>
                 <ul class="breadcrumb float-md-right">
                     <li class="breadcrumb-item">
-                        <a href="index.html">
-                            <i class="zmdi zmdi-home"></i> Oreo</a>
+                      <a href="/">
+                        <i class="zmdi zmdi-home"></i> ShopCart</a>
                     </li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                  <li class="breadcrumb-item active">Users</li>
                 </ul>
             </div>
         </div>
@@ -27,56 +27,16 @@
                 <div class="card action_bar">
                     <div class="body">
                         <div class="row clearfix">
-                            <div class="col-lg-1 col-md-2 col-3">
-                                <div class="checkbox inlineblock delete_all">
-                                    <input id="deleteall" type="checkbox">
-                                    <label for="deleteall">
-                                        All
-                                    </label>
-                                </div>
-                            </div>
                             <div class="col-lg-5 col-md-5 col-6">
                                 <div class="input-group search">
-                                    <input type="text" class="form-control" placeholder="Search...">
+                                  <input type="text" [(ngModel)]="searchterm" class="form-control"
+                                         placeholder="Search...">
                                     <span class="input-group-addon">
                                         <i class="zmdi zmdi-search"></i>
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-md-5 col-3 text-right">
-                                <div class="btn-group hidden-sm-down" role="group">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-neutral dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="zmdi zmdi-label"></i>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-right pullDown">
-                                            <li>
-                                                <a href="javascript:void(0);">Family</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">Work</a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0);">Google</a>
-                                            </li>
-                                            <li role="separator" class="divider"></li>
-                                            <li>
-                                                <a href="javascript:void(0);">Create a Label</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <button type="button" class="btn btn-neutral hidden-sm-down">
-                                    <i class="zmdi zmdi-plus-circle"></i>
-                                </button>
-                                <button type="button" class="btn btn-neutral hidden-sm-down">
-                                    <i class="zmdi zmdi-archive"></i>
-                                </button>
-                                <button type="button" class="btn btn-neutral">
-                                    <i class="zmdi zmdi-delete"></i>
-                                </button>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -99,7 +59,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let user of usersArray" [routerLink]="['/users/user-profile', user?.id]">
+                            <tr
+                              *ngFor="let user of usersArray | filter:searchterm | paginate: { itemsPerPage: 6, currentPage: p }"
+                              [routerLink]="['/users/user-profile', user?.id]">
                                     <td>
                                         <div class="checkbox">
                                             <input id="delete_9" type="checkbox">
@@ -136,34 +98,11 @@
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="body">
-                        <ul class="pagination pagination-primary m-b-0">
-                            <li class="page-item">
-                                <a class="page-link" href="#">
-                                    <i class="zmdi zmdi-arrow-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">
-                                    <i class="zmdi zmdi-arrow-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+              <div class="card">
+                <div class="body">
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
                 </div>
+              </div>
             </div>
         </div>
     </div> <!-- container fluid end div -->

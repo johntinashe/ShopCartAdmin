@@ -87,9 +87,39 @@
                   <div class="col-lg-10 col-md-10 col-sm-8">
                   <div class="form-group">
                     <div class="form-line">
-                      <textarea rows="4" id="product_desc" name="long_desc" [(ngModel)]="product.product_description" class="form-control no-resize" placeholder="Please Enter Product Description..."></textarea>
+                      <textarea rows="3" id="product_desc" name="long_desc" [(ngModel)]="product.product_description"
+                                class="form-control no-resize"
+                                placeholder="Please Enter Product Description..."></textarea>
                     </div>
                   </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="product_ing">Product Ingredients</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <textarea rows="3" id="product_ing" name="ingredients" [(ngModel)]="product.product_ingredients"
+                                  class="form-control no-resize"
+                                  placeholder="Please Enter Product Ingredients..."></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row clearfix">
+                  <div class="col-lg-2 col-md-2 col-sm-4 form-control-label">
+                    <label for="product_facts">Product Nutritional Facts</label>
+                  </div>
+                  <div class="col-lg-10 col-md-10 col-sm-8">
+                    <div class="form-group">
+                      <div class="form-line">
+                        <textarea rows="3" id="product_facts" name="facts"
+                                  [(ngModel)]="product.product_nutritional_facts" class="form-control no-resize"
+                                  placeholder="Please Enter Product Nutritional Facts..."></textarea>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="row clearfix">
@@ -105,28 +135,28 @@
                             <b>Category</b>
                           </p>
                           <select class="form-control show-tick" name="category" [(ngModel)]="product.product_category_id" >
+                            <option value="">-- Please select --</option>
                             <option *ngFor="let cat of categoriesArray" value="{{cat?.id}}" >{{cat?.name}}</option>
                           </select>
                         </div>
                         <div class="col-lg-4 col-md-4">
                           <p>
-                            <b>Supplier</b>
+                            <b>Featured Products</b>
                           </p>
-                          <select class="form-control show-tick" name="supplier" [(ngModel)]="product.supplier_id">
+                          <select class="form-control show-tick" name="featured" ngModel>
                             <option value="">-- Please select --</option>
-                            <option value="1gghgh">Hot Dog, Fries and a Soda</option>
-                            <option value="2fjks">Burger, Shake and a Smile</option>
-                            <option value="3ddlld">Sugar, Spice and all things nice</option>
+                            <option value="False">False</option>
+                            <option value="True">True</option>
                           </select>
                         </div>
                         <div class="col-lg-4 col-md-4">
                           <p>
                             <b>Status</b>
                           </p>
-                          <select class="form-control" name="status">
+                          <select class="form-control" name="status" ngModel>
                             <option value="">-- Please select --</option>
-                            <option value="False">False</option>
                             <option value="True">True</option>
+                            <option value="False">False</option>
                           </select>
                         </div>
                       </div>

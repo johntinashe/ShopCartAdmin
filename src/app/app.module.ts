@@ -33,6 +33,8 @@ import {NotificationService} from './services/notification.service';
 import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
 import {OrdersComponent} from './components/orders/orders.component';
 import {OrderSummaryComponent} from './components/order-summary/order-summary.component';
+import {EditProductComponent} from './components/edit-product/edit-product.component';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -42,10 +44,12 @@ const appRoutes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full', canActivate: [AuthGuard]},
   {path: 'messages', component: MessagesComponent, canActivate: [AuthGuard]},
   {path: 'products', component: ProductsListComponent, canActivate: [AuthGuard]},
+  {path: 'products/edit-product/:id', component: EditProductComponent, canActivate: [AuthGuard]},
   {path: 'products/add-product', component: AddProductComponent, canActivate: [AuthGuard]},
   {path: 'users/user-profile/:id', component: UserProfileComponent, canActivate: [AuthGuard]},
   {path: 'products/product-detail/:id', component: ProductDetailComponent, canActivate: [AuthGuard]},
   {path: 'categories/manage-category', component: ManageCategoryComponent, canActivate: [AuthGuard]},
+  {path: 'categories/manage-category/:id', component: ManageCategoryComponent, canActivate: [AuthGuard]},
   {path: 'page_not_found' , component: PageNotFoundComponent , canActivate: [AuthGuard]},
   {path: 'orders' , component: OrdersComponent , canActivate: [AuthGuard]},
   {path: 'orders/order-summary/:id', component: OrderSummaryComponent, canActivate: [AuthGuard]},
@@ -72,7 +76,8 @@ const appRoutes: Routes = [
     ManageCategoryComponent,
     PageNotFoundComponent,
     OrdersComponent,
-    OrderSummaryComponent
+    OrderSummaryComponent,
+    EditProductComponent
   ],
   imports: [
   BrowserModule,
@@ -84,7 +89,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(),
     NgxPaginationModule,
-    TruncateModule
+    TruncateModule,
+    Ng2SearchPipeModule
   ],
   providers: [AuthService, ToastrService, CategoryService, AuthGuard, IdserviceService,
   NotificationService],
