@@ -114,7 +114,7 @@ export class Categories {
   private snack = inject(MatSnackBar);
 
   protected categories = toSignal(this.data.categories$(), { initialValue: [] as Category[] });
-  protected counts = signal<Record<string, number>>({});
+  protected counts = signal<Record<string, number | undefined>>({});
   protected editing = signal<string | null>(null);
   protected image = signal('');
   protected busy = signal(false);
