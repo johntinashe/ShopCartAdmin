@@ -13,5 +13,6 @@ node_modules/
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
-firebase/functions/.env.local
+firebase/functions/.env
+firebase/functions/.env.*
 firebase/functions/*.local
