@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAdmin() {
+      return request.auth != null
+        && firestore.exists(/databases/(default)/documents/admins/$(request.auth.uid));
+    }
+    function isImage() {
+      return request.resource.contentType.matches('image/.*')
+        && request.resource.size < 5 * 1024 * 1024;
+    }
+
+    // Product and category images.
+    match /products/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && (request.resource == null || isImage());
+    }
+    match /categories/{allPaths=**} {
+      allow read: if true;
+      allow write: if isAdmin() && (request.resource == null || isImage());
+    }
+
+    // Profile pictures.
+    match /users/{uid}/{allPaths=**} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.uid == uid
+        && (request.resource == null || isImage());
+    }
+
+    // Images from the 2018 version stay readable.
+    match /{allPaths=**} {
+      allow read: if true;
+    }
+  }
+}

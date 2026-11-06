@@ -1,0 +1,137 @@
+@use '@angular/material' as mat;
+
+html {
+  color-scheme: light dark;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$green-palette,
+        tertiary: mat.$orange-palette,
+      ),
+      typography: Inter,
+      density: 0,
+    )
+  );
+}
+
+:root {
+  --sc-bg: light-dark(#f6f7f5, #121412);
+  --sc-surface: light-dark(#ffffff, #1c1f1c);
+  --sc-border: light-dark(#e3e6e1, #2c302c);
+  --sc-muted: light-dark(#5f665f, #a3aaa3);
+  --sc-success: light-dark(#1b6b4a, #7fd6a8);
+  --sc-warn: light-dark(#a15c00, #ffb866);
+  --sc-danger: light-dark(#b3261e, #ffb4ab);
+  --sc-info: light-dark(#2d5fa8, #a8c7ff);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: var(--sc-bg);
+  color: var(--mat-sys-on-surface);
+}
+
+.page {
+  padding: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+}
+
+.panel {
+  background: var(--sc-surface);
+  border: 1px solid var(--sc-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.panel-pad {
+  padding: 20px;
+}
+
+.muted {
+  color: var(--sc-muted);
+}
+
+.toolbar-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 16px;
+
+  mat-form-field {
+    min-width: 220px;
+  }
+}
+
+.thumb {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--sc-border);
+  vertical-align: middle;
+}
+
+.status-chip {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+
+  &.new { background: color-mix(in srgb, var(--sc-info) 15%, transparent); color: var(--sc-info); }
+  &.shipped { background: color-mix(in srgb, var(--sc-warn) 15%, transparent); color: var(--sc-warn); }
+  &.delivered { background: color-mix(in srgb, var(--sc-success) 15%, transparent); color: var(--sc-success); }
+  &.cancelled,
+  &.payment_failed { background: color-mix(in srgb, var(--sc-danger) 15%, transparent); color: var(--sc-danger); }
+  &.pending_payment { background: color-mix(in srgb, var(--sc-muted) 15%, transparent); color: var(--sc-muted); }
+}
+
+table.mat-mdc-table {
+  background: transparent;
+}
+
+tr.clickable {
+  cursor: pointer;
+
+  &:hover {
+    background: color-mix(in srgb, var(--mat-sys-primary) 6%, transparent);
+  }
+}
+
+.empty {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--sc-muted);
+}
+
+@media (max-width: 600px) {
+  .page {
+    padding: 16px;
+  }
+}

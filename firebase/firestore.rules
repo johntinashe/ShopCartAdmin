@@ -1,0 +1,113 @@
+rules_version = '2';
+
+// ShopCart Firestore security rules.
+// Admins are users with a document in /admins/{uid} (create it in the console).
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isUser(uid) { return signedIn() && request.auth.uid == uid; }
+    function isAdmin() {
+      return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+    function onlyChanges(keys) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(keys);
+    }
+
+    // Catalogue: public read, admin write.
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /admins/{uid} {
+      allow read: if isUser(uid) || isAdmin();
+      allow update: if isUser(uid) && onlyChanges(['last_login', 'name', 'surname', 'image']);
+      allow create, delete: if false;
+    }
+
+    match /users/{uid} {
+      allow read: if isUser(uid) || isAdmin();
+      allow create, update: if isUser(uid);
+      allow delete: if false;
+
+      match /favorites/{productId} {
+        allow read, write: if isUser(uid);
+      }
+      // Written by Cloud Functions only.
+      match /payments/{paymentId} {
+        allow read: if isUser(uid) || isAdmin();
+        allow write: if false;
+      }
+    }
+
+    match /carts/{uid}/products/{productId} {
+      allow read, write: if isUser(uid);
+    }
+
+    // Orders are created by the placeOrder function. Admins move them
+    // through new -> shipped -> delivered (or cancelled).
+    match /orders/{orderId} {
+      allow read: if signedIn() && (resource.data.user_id == request.auth.uid || isAdmin());
+      allow update: if isAdmin()
+        && request.resource.data.status in ['new', 'shipped', 'delivered', 'cancelled']
+        && onlyChanges(['status', 'shipped_at', 'delivered_at', 'cancelled_at', 'updated_at']);
+      allow create, delete: if false;
+
+      // Legacy (2018) order items stored in orders/{id}/{id}.
+      match /{legacyItems}/{itemId} {
+        allow read: if signedIn() && (
+          get(/databases/$(database)/documents/orders/$(orderId)).data.user_id == request.auth.uid
+          || isAdmin());
+        allow write: if false;
+      }
+    }
+
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if signedIn()
+        && request.resource.data.user_id == request.auth.uid
+        && request.resource.data.rating is number
+        && request.resource.data.rating >= 1 && request.resource.data.rating <= 5
+        && request.resource.data.review is string
+        && request.resource.data.review.size() <= 2000;
+      allow update: if signedIn() && resource.data.user_id == request.auth.uid
+        && onlyChanges(['review', 'rating', 'time']);
+      allow delete: if signedIn() && (resource.data.user_id == request.auth.uid || isAdmin());
+
+      match /likes/{uid} {
+        allow read: if true;
+        allow write: if isUser(uid);
+      }
+    }
+
+    // Customer support chat: messages/{customerUid}/userQueries/{messageId}
+    match /messages/{uid} {
+      allow read, write: if isUser(uid) || isAdmin();
+
+      match /userQueries/{messageId} {
+        allow read: if isUser(uid) || isAdmin();
+        allow create: if (isUser(uid) || isAdmin())
+          && request.resource.data.from == request.auth.uid
+          && request.resource.data.message is string
+          && request.resource.data.message.size() <= 4000;
+        allow update: if (isUser(uid) || isAdmin()) && onlyChanges(['seen']);
+        allow delete: if false;
+      }
+    }
+
+    // Back-in-stock subscriptions.
+    match /notifications/{productId}/subscribers/{uid} {
+      allow read, write: if isUser(uid);
+    }
+
+    // Server-only.
+    match /paymentSessions/{orderId} {
+      allow read, write: if false;
+    }
+  }
+}
